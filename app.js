@@ -24,30 +24,62 @@ addButton.addEventListener("click", function(){
     const itemQuantity = document.getElementById("item-quantity-input").value;
 
 
-    const tr= document.createElement("tr");
-    const th= document.createElement("th");
-    const td1= document.createElement("td");
-    const td2= document.createElement("td");
-    const td3= document.createElement("td");
+    if (itemName == "" || itemPrice == "" || itemQuantity== "") {
+        return;
+    }
+    else{
+        
+        const tr= document.createElement("tr");
+        const th= document.createElement("th");
+        const td1= document.createElement("td");
+        const td2= document.createElement("td");
+        const td3= document.createElement("td");
 
 
-    th.innerText= (itemName);
-    td1.innerText= (itemPrice);
-    td2.innerText= (itemQuantity)
-    td3.innerText = parseFloat(itemPrice) * parseFloat(itemQuantity);
+        th.innerText= (itemName);
+        td1.innerText= (itemPrice);
+        td2.innerText= (itemQuantity)
+        td3.innerText = parseFloat(itemPrice) * parseFloat(itemQuantity);
 
 
-    tr.appendChild(th);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-  
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        
 
-    document.getElementById("info-table").appendChild(tr);
+        td3.classList = "total-array";
 
-    
-    document.getElementById("item-name-input").value= " ";
-    document.getElementById("item-price-input").value= " ";
-    document.getElementById("item-quantity-input").value= " ";
+        document.getElementById("info-table").appendChild(tr);
 
+        
+        document.getElementById("item-name-input").value= " ";
+        document.getElementById("item-price-input").value= " ";
+        document.getElementById("item-quantity-input").value= " ";
+
+        TotalCalculate();
+    }
+   
 });
+
+
+function TotalCalculate(){
+
+
+    let subTotal = 0;
+    const totals = document.getElementsByClassName("total-array");
+    for(const total of totals){
+        subTotal = subTotal + parseFloat(total.innerText);
+    }
+
+
+    document.getElementById("sub-total").innerText = subTotal;
+
+    const tax = subTotal / 10;
+    document.getElementById("tax").innerText= tax;
+    document.getElementById("grand-total").innerText= subTotal + tax;
+    document.getElementById("grand-total-2").innerText= subTotal + tax;
+
+};
+
+
